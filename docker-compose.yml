@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  selenium-worker:               
+    image: selenium/standalone-chrome:latest 
+    shm_size: 2gb         
+    ports:
+      - 4444:4444         
+      - 7900:7900         
+
+  python:
+    build: .
+    volumes:
+      - ./app:/app
+    tty: true
+    depends_on:
+      - selenium-worker
+    ports:
+      - 5000:5000
+    environment:
+      - SELENIUM_WORKER_HOST=selenium-worker
