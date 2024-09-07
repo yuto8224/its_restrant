@@ -14,11 +14,11 @@ COPY ./requirements.txt /requirements.txt
 
 RUN pip install -r /requirements.txt
 
-WORKDIR /app
+WORKDIR /
 
-COPY ./app .
+COPY ./ .
 
-ENV FLASK_APP=/app/app.py
+ENV FLASK_APP=app.py
 
 EXPOSE 5000
 

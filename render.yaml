@@ -1,0 +1,21 @@
+services:
+  - type: pserv
+    name: selenium-worker
+    runtime: docker
+    dockerfilePath: ./Dockerfile.selenium
+    rootDir: .
+    envVars:
+      - key: PORT
+        value: 4444
+
+  - type: web
+    name: flask
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    rootDir: .
+    envVars:
+      - key: FLASK_APP
+        value: app.py
+      - key: SELENIUM_WORKER_HOST
+        value: ***
+        
