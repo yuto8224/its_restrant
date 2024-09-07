@@ -72,9 +72,21 @@ def handle_message(event):
 	## 受信メッセージの中身を取得
 	received_message = event.message.text
 
+	## 返信メッセージ編集（デバッグ用）
+	reply = f'driver初期化開始'
+	line_bot_api.reply_message(ReplyMessageRequest(
+		replyToken=event.reply_token,
+		messages=[TextMessage(text=reply)]
+	))
+
 	driver = init_driver()
 
-	driver.implicitly_wait(10)
+	## 返信メッセージ編集（デバッグ用）
+	reply = f'driver初期化完了'
+	line_bot_api.reply_message(ReplyMessageRequest(
+		replyToken=event.reply_token,
+		messages=[TextMessage(text=reply)]
+	))
 
 	url = 'https://datascience-beginer.com/'  # テストでアクセスするURLを指定
 	driver.get(url)
@@ -98,6 +110,13 @@ def handle_message(event):
 	))
 
 	finish_driver(driver)
+
+	## 返信メッセージ編集（デバッグ用）
+	reply = f'driver停止完了'
+	line_bot_api.reply_message(ReplyMessageRequest(
+		replyToken=event.reply_token,
+		messages=[TextMessage(text=reply)]
+	))
 	"""
 	## APIを呼んで送信者のプロフィール取得
 	profile = line_bot_api.get_profile(event.source.user_id)
